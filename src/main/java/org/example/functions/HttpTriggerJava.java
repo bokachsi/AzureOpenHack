@@ -81,6 +81,10 @@ public class HttpTriggerJava {
         if (item.getProductId() == null)
             throw  new RuntimeException("Empty productId");
 
+        //TODO check userId is valid
+
+        //TODO check productId is valid
+
         return true;
     }
 
