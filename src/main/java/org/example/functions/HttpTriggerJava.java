@@ -53,17 +53,35 @@ public class HttpTriggerJava {
                     .withId("" + Math.abs(new Random().nextInt()));
 
             String body = "The product name for your product id" + id + "is Starfruit Explosion";
-            document.setValue(builder.build());
+
+            RatingItem item = builder.build();
+            validateRating(item);
+            document.setValue(item);
             context.getLogger().info("Document to be saved: " + document);
 
-            return request.createResponseBuilder(HttpStatus.OK).body(body).build();
+            return request.createResponseBuilder(HttpStatus.OK).body(item).build();
         } catch (Exception ex) {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST)
                     .body("Failed to save new rating: " + ex.getLocalizedMessage())
                     .build();
-
         }
 
+    }
+
+    private static boolean validateRating(RatingItem item) {
+        if (item == null)
+            throw new RuntimeException("Empty rating object");
+
+        if (item.getRating() < 0 || item.getRating() > 5)
+            throw new RuntimeException("Invalid rating value. Rating should be in interval [0-5]");
+
+        if (item.getUserId() == null)
+            throw  new RuntimeException("Empty userId");
+
+        if (item.getProductId() == null)
+            throw  new RuntimeException("Empty productId");
+
+        return true;
     }
 
 
