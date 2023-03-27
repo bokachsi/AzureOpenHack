@@ -46,7 +46,7 @@ public class GetRating {
             rating = ratings[0];
 
         // Convert and display
-        if (ratings == null) {
+        if (rating == null) {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST)
                     .body("Document not found.")
                     .build();
