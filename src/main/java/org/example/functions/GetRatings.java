@@ -54,7 +54,7 @@ public class GetRatings {
 
         // Convert and display
         if (ratings == null || ratings.length == 0) {
-            return request.createResponseBuilder(HttpStatus.BAD_REQUEST)
+            return request.createResponseBuilder(HttpStatus.NOT_FOUND)
                     .body("No documents found.")
                     .build();
         }
