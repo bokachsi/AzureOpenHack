@@ -6,6 +6,7 @@ import com.microsoft.azure.functions.annotation.CosmosDBOutput;
 import com.microsoft.azure.functions.annotation.FunctionName;
 import com.microsoft.azure.functions.annotation.HttpTrigger;
 
+import java.util.Date;
 import java.util.Optional;
 import java.util.Random;
 
@@ -68,6 +69,7 @@ public class HttpTriggerJava {
         ri.setRating(5);
         ri.setLocationName(locationName);
         ri.setUserNotes(notes);
+        ri.setTimestamp(new Date());
 
         document.setValue(ri);
         context.getLogger().info("Document to be saved: " + document);
