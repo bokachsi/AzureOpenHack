@@ -6,7 +6,7 @@ public class RatingItem {
     public String id;
     public String productId;
     public String userId;
-    public Instant timestamp;
+//    public Instant timestamp;
     public String locationName;
     public int rating;
     public String userNotes;
@@ -35,13 +35,13 @@ public class RatingItem {
         this.userId = userId;
     }
 
-    public Instant getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Instant timestamp) {
-        this.timestamp = timestamp;
-    }
+//    public Instant getTimestamp() {
+//        return timestamp;
+//    }
+//
+//    public void setTimestamp(Instant timestamp) {
+//        this.timestamp = timestamp;
+//    }
 
     public String getLocationName() {
         return locationName;
@@ -73,7 +73,7 @@ public class RatingItem {
                 "id='" + id + '\'' +
                 ", productId='" + productId + '\'' +
                 ", userId='" + userId + '\'' +
-                ", timestamp=" + timestamp +
+//                ", timestamp=" + timestamp +
                 ", locationName='" + locationName + '\'' +
                 ", rating=" + rating +
                 ", userNotes='" + userNotes + '\'' +

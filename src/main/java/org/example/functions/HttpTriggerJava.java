@@ -7,6 +7,7 @@ import com.microsoft.azure.functions.annotation.FunctionName;
 import com.microsoft.azure.functions.annotation.HttpTrigger;
 
 import java.util.Optional;
+import java.util.Random;
 
 /**
  * Azure Functions with HTTP Trigger.
@@ -14,12 +15,19 @@ import java.util.Optional;
 
 public class HttpTriggerJava {
     /**
-     * This function listens at endpoint "/api/HttpTriggerJava". Two ways to invoke it using "curl" command in bash:
-     * 1. curl -d "HTTP Body" {your host}/api/HttpTriggerJava
-     * 2. curl {your host}/api/HttpTriggerJava?name=HTTP%20Query
+     CreateRating
+     Verb: POST
+     Input payload example:
+     {
+     "userId": "cc20a6fb-a91f-4192-874d-132493685376",
+     "productId": "4c25613a-a3c2-4ef3-8e02-9c335eb23204",
+     "locationName": "Sample ice cream shop",
+     "rating": 5,
+     "userNotes": "I love the subtle notes of orange in this ice cream!"
+     }
      */
 
-    @FunctionName("HttpTriggerJava")
+    @FunctionName("CreateRating")
     public HttpResponseMessage run(
             @HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<String>> request,
             @CosmosDBOutput(
@@ -33,16 +41,39 @@ public class HttpTriggerJava {
 
         // Parse query parameter
         String query = request.getQueryParameters().get("productId");
-        String name = request.getBody().orElse(query);
+        String productId = request.getBody().orElse(query);
+
+        query = request.getQueryParameters().get("userId");
+        String userId = request.getBody().orElse(query);
+
+        query = request.getQueryParameters().get("locationName");
+        String locationName = request.getBody().orElse(query);
+
+        query = request.getQueryParameters().get("rating");
+        String rating = request.getBody().orElse(query);
+
+        query = request.getQueryParameters().get("userNotes");
+        String notes = request.getBody().orElse(query);
+
+        // Generate random ID
+        final int id = Math.abs(new Random().nextInt());
 
         String body = "The product name for your product id" + query + "is Starfruit Explosion";
 
         RatingItem ri = new RatingItem();
-        ri.id = "234234234-java";
-        ri.productId = "prd-id2";
-        document.setValue(ri);
 
-        if (name == null) {
+        ri.setId(id+"");
+        ri.setProductId(productId);
+        ri.setUserId(userId);
+        ri.setRating(5);
+        ri.setLocationName(locationName);
+        ri.setUserNotes(notes);
+
+        document.setValue(ri);
+        context.getLogger().info("Document to be saved: " + document);
+
+
+        if (productId == null) {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("A new message Please pass a name on the query string or in the request body").build();
         } else {
             return request.createResponseBuilder(HttpStatus.OK).body(body).build();

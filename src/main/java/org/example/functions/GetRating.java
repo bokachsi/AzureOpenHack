@@ -31,20 +31,22 @@ public class GetRating {
             @HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<String>> request,
             @CosmosDBInput(name = "databaseOutput",
                     databaseName = "BFYOC",
-//                    id = "{Query.id}",
-//                    partitionKey = "{Query.productId}",
                     sqlQuery = "select * from Ratings r where r.id = {ratingId}",
                     collectionName = "Ratings",
                     connectionStringSetting = "CosmosDB")
-            RatingItem item,
+            RatingItem[] ratings,
             final ExecutionContext context) {
 
         // Item list
         context.getLogger().info("Parameters are: " + request.getQueryParameters());
-        context.getLogger().info("Item from the database is " + item);
+        context.getLogger().info("Item from the database is " + (ratings == null ? 0 : ratings.length));
+
+        RatingItem rating =  null;
+        if (ratings != null && ratings.length > 0)
+            rating = ratings[0];
 
         // Convert and display
-        if (item == null) {
+        if (ratings == null) {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST)
                     .body("Document not found.")
                     .build();
@@ -52,7 +54,7 @@ public class GetRating {
         else {
             return request.createResponseBuilder(HttpStatus.OK)
                     .header("Content-Type", "application/json")
-                    .body(item)
+                    .body(rating)
                     .build();
         }
     }
