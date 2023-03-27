@@ -66,7 +66,11 @@ public class HttpTriggerJava {
         ri.setId(id+"");
         ri.setProductId(productId);
         ri.setUserId(userId);
-        ri.setRating(5);
+
+        try {
+            ri.setRating(Integer.parseInt(rating));
+        } catch (Exception ignore) {}
+
         ri.setLocationName(locationName);
         ri.setUserNotes(notes);
         ri.setTimestamp(new Date());
