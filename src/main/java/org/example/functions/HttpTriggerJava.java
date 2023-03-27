@@ -43,20 +43,26 @@ public class HttpTriggerJava {
         final int id = Math.abs(new Random().nextInt());
 
         // Parse query parameter
-        RatingItem.RatingItemBuilder builder = RatingItem.RatingItemBuilder.getInstance();
-        builder.withProductId(request.getQueryParameters().get("productId"))
-                .withUserId(request.getQueryParameters().get("userId"))
-                .withUserNotes(request.getQueryParameters().get("userNotes"))
-                .withLocationName(request.getQueryParameters().get("locationName"))
-                .withRating(request.getQueryParameters().get("rating"))
-                .withId("" + Math.abs(new Random().nextInt()));
+        try {
+            RatingItem.RatingItemBuilder builder = RatingItem.RatingItemBuilder.getInstance();
+            builder.withProductId(request.getQueryParameters().get("productId"))
+                    .withUserId(request.getQueryParameters().get("userId"))
+                    .withUserNotes(request.getQueryParameters().get("userNotes"))
+                    .withLocationName(request.getQueryParameters().get("locationName"))
+                    .withRating(request.getQueryParameters().get("rating"))
+                    .withId("" + Math.abs(new Random().nextInt()));
 
-        String body = "The product name for your product id" + id + "is Starfruit Explosion";
-        document.setValue(builder.build());
-        context.getLogger().info("Document to be saved: " + document);
+            String body = "The product name for your product id" + id + "is Starfruit Explosion";
+            document.setValue(builder.build());
+            context.getLogger().info("Document to be saved: " + document);
 
-        return request.createResponseBuilder(HttpStatus.OK).body(body).build();
+            return request.createResponseBuilder(HttpStatus.OK).body(body).build();
+        } catch (Exception ex) {
+            return request.createResponseBuilder(HttpStatus.BAD_REQUEST)
+                    .body("Failed to save new rating: " + ex.getLocalizedMessage())
+                    .build();
 
+        }
 
     }
 
