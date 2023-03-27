@@ -85,7 +85,6 @@ public class RatingItem {
         public String id;
         public String productId;
         public String userId;
-        public Date timestamp;
         public String locationName;
         public int rating;
         public String userNotes;
