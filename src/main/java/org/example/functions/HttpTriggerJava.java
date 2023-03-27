@@ -1,23 +1,16 @@
 package org.example.functions;
 
-import java.time.Instant;
-import java.util.*;
-import com.microsoft.azure.functions.annotation.*;
 import com.microsoft.azure.functions.*;
+import com.microsoft.azure.functions.annotation.AuthorizationLevel;
+import com.microsoft.azure.functions.annotation.CosmosDBOutput;
+import com.microsoft.azure.functions.annotation.FunctionName;
+import com.microsoft.azure.functions.annotation.HttpTrigger;
+
+import java.util.Optional;
 
 /**
  * Azure Functions with HTTP Trigger.
  */
-class RatingItem {
-    public String id;
-    public String productId;
-    public String userId;
-    public Instant timestamp;
-    public String locationName;
-    public int rating;
-    public String userNotes;
-
-}
 
 public class HttpTriggerJava {
     /**
