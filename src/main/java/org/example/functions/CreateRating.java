@@ -12,6 +12,7 @@ import com.microsoft.azure.functions.annotation.HttpTrigger;
 
 import java.io.IOException;
 import java.time.Instant;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -37,7 +38,7 @@ public class CreateRating {
         RatingItem ri = request.getBody().orElse(null);
 
         ri.id = UUID.randomUUID().toString();
-        ri.timestamp = Instant.now().toString();
+        ri.timestamp = new Date();
         document.setValue(ri);
 
         if (!validate(ri)) {
