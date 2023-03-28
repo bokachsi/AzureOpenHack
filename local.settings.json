@@ -5,7 +5,9 @@
     "FUNCTIONS_WORKER_RUNTIME": "java"
   },
   "ConnectionStrings": {
+    "provider": "provider",
     "CosmosDB": "AccountEndpoint=https://cosmosuser1.documents.azure.com:443/;AccountKey=4VFLJONlhwFhpQj5m2SLHDuEi1JegPWho5KDhxTH94ODcF9MJhmnmWhp4RZMzgtzSFSjfHcpNloJACDb2ppTTg==;",
-    "EventHub": "Endpoint=sb://defaultteam2.servicebus.windows.net/;SharedAccessKeyName=sendpolicy;SharedAccessKey=z/rFH11IcHCZrkY1GlfaZjkRa8E8gI+BT+AEhIDyXh8=;EntityPath=team2eventhub"
+    "EventHub": "Endpoint=sb://defaultteam2.servicebus.windows.net/;SharedAccessKeyName=sendpolicy;SharedAccessKey=z/rFH11IcHCZrkY1GlfaZjkRa8E8gI+BT+AEhIDyXh8=;EntityPath=team2eventhub",
+    "ServiceBus" : "Endpoint=sb://servicebusteam2.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=Svr4+P0NwVbSy2/3d9al3+gElYQVLgdU4+ASbBtQ8uI="
   }
 }
