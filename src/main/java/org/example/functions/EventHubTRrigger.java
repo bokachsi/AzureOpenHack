@@ -13,7 +13,7 @@ public class EventHubTRrigger {
      */
     @FunctionName("EventHubTRrigger")
     public void run(
-        @EventHubTrigger(name = "message", eventHubName = "team2eventhub", connection = "default", consumerGroup = "$Default", cardinality = Cardinality.MANY) List<String> message,
+        @EventHubTrigger(name = "message", eventHubName = "team2eventhub", connection = "EventHub", consumerGroup = "$Default", cardinality = Cardinality.MANY) List<String> message,
         final ExecutionContext context
     ) {
         context.getLogger().info("Java Event Hub trigger function executed.");
